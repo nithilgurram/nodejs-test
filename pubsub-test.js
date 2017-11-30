@@ -11,7 +11,7 @@ function listener2(msg) {
 
 describe('PubSubTests', function() {
   it("should subscribe 2 listeners for 2 different topics", function() {
-    var pubsub = require('../src/pubsub.js');
+    var pubsub = require('pubsub.js');
     pubsub.subscribe("foo", listener1, 2);
     pubsub.subscribe("bar", listener2, 2);
     pubsub.publish("foo", "hello");
@@ -20,7 +20,7 @@ describe('PubSubTests', function() {
   });
 
   it("should not subscribe same listener again", function() {
-    var pubsub = require('../src/pubsub.js');
+    var pubsub = require('pubsub.js');
     pubsub.subscribe("foo", listener2, 2);
     pubsub.subscribe("foo", listener2, 2);
     pubsub.publish("foo", "hello");
@@ -30,7 +30,7 @@ describe('PubSubTests', function() {
   });
 
   it("should let subscribe to multiple topics", function() {
-    var pubsub = require('../src/pubsub.js');
+    var pubsub = require('pubsub.js');
     pubsub.subscribe("foo", listener2, 2);
     pubsub.subscribe("bar", listener2, 2);
     pubsub.subscribe("foo2", listener2, 2);
@@ -43,14 +43,14 @@ describe('PubSubTests', function() {
   });
 
   it("should drain the queue", function() {
-    var pubsub = require('../src/pubsub.js');
+    var pubsub = require('pubsub.js');
     pubsub.drain();
     expect(pubsub.getSubscribers().length).to.equal(0);
     expect(pubsub.getTopicHistory().length).to.equal(0);
   });
 
   it("should not publish when no subscriners", function() {
-    var pubsub = require('../src/pubsub.js');
+    var pubsub = require('pubsub.js');
     pubsub.publish("foo", "hello");
     pubsub.publish("bar", "hello");
     expect(pubsub.getSubscribers().length).to.equal(0);
@@ -58,7 +58,7 @@ describe('PubSubTests', function() {
   });
 
   it("should publish when topicname has regex pattern", function() {
-    var pubsub = require('../src/pubsub.js');
+    var pubsub = require('pubsub.js');
     pubsub.subscribe("f*", listener2);
     pubsub.publish("foo", "hello");
     pubsub.publish("fab", "hello");
